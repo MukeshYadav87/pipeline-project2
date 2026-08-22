@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout'){
+            steps{
+                git 'https://github.com/MukeshYadav87/pipeline-project1.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        stage('Test'){
+            steps {
+                bat 'mvn test'
+            }
+        }
+        stage('Deploy'){
+            steps {
+                // bat 'mvn deploy'
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "pipeline executed successfully"
+        }
+        failure {
+            echo "pipeline failed"
+        }
+    }
+}
